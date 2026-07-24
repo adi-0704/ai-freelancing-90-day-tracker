@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90-Day AI Freelancing Command Center</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <div>
+                    <h1>AI Freelance <span>Command Center</span></h1>
+                    <p class="subtitle">90-Day Execution & Outreach Tracker</p>
+                </div>
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-badge streak-badge">
+                    <i class="fa-solid fa-fire"></i>
+                    <div>
+                        <span class="stat-value" id="headerStreak">0 Days</span>
+                        <span class="stat-label">Current Streak</span>
+                    </div>
+                </div>
+                
+                <div class="stat-badge progress-badge">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <div>
+                        <span class="stat-value" id="headerTotalProgress">0%</span>
+                        <span class="stat-label">90-Day Completed</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary btn-icon" id="btnSettings" title="Settings & Data Management">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Day Selector Control Bar -->
+        <section class="controls-card">
+            <div class="day-navigation">
+                <button class="btn btn-nav" id="btnPrevDay"><i class="fa-solid fa-chevron-left"></i> Prev Day</button>
+                <div class="current-day-picker">
+                    <span class="day-chip" id="currentDayChip">Day 1</span>
+                    <select id="daySelect" class="day-dropdown">
+                        <!-- Options populated via JS -->
+                    </select>
+                </div>
+                <button class="btn btn-nav" id="btnNextDay">Next Day <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="btn btn-primary" id="btnToday"><i class="fa-solid fa-calendar-day"></i> Jump to Today</button>
+            </div>
+            
+            <div class="date-info">
+                <span id="dateDisplay"><i class="fa-regular fa-calendar"></i> Today: July 24, 2026</span>
+                <span class="badge badge-active" id="dayStatusBadge">Today's Focus</span>
+            </div>
+        </section>
+
+        <!-- Main Workspace Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Left Column: Daily Focus & Checklist -->
+            <div class="dashboard-main">
+                <!-- Focus of the Day Card -->
+                <section class="card focus-card">
+                    <div class="card-header">
+                        <div>
+                            <span class="card-tag" id="dayCategory">Focus of the Day</span>
+                            <h2 class="focus-title" id="dayTitle">Choose Niche & Define Offer</h2>
+                        </div>
+                        <button class="btn btn-accent" id="btnOpenGuide">
+                            <i class="fa-solid fa-book-open"></i> Execution Guide
+                        </button>
+                    </div>
+
+                    <!-- Daily Progress Bar -->
+                    <div class="daily-progress-container">
+                        <div class="progress-info">
+                            <span>Today's Task Completion</span>
+                            <strong id="dailyPercent">0%</strong>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="dailyProgressFill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Daily Baseline Targets Card -->
+                <section class="card targets-card">
+                    <h3 class="section-title"><i class="fa-solid fa-bullseye"></i> Daily Baseline Targets (Mon - Sun)</h3>
+                    <p class="section-desc">Consistent daily routines required for high-conversion freelancing.</p>
+
+                    <div class="targets-list" id="baselineTargetsList">
+                        <!-- Baseline target items injected via JS -->
+                    </div>
+                </section>
+
+                <!-- Specific Action Tasks Card -->
+                <section class="card tasks-card">
+                    <h3 class="section-title"><i class="fa-solid fa-list-check"></i> Day-Specific Deliverables</h3>
+                    <p class="section-desc">Key tasks required to complete this specific day's roadmap.</p>
+
+                    <div class="tasks-list" id="specificTasksList">
+                        <!-- Tasks list injected via JS -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Stats & 90-Day Matrix Overview -->
+            <div class="dashboard-sidebar">
+                <!-- Outreach Tracker Card -->
+                <section class="card widget-card">
+                    <h3 class="widget-title"><i class="fa-solid fa-paper-plane"></i> Daily Outreach Logger</h3>
+                    <div class="outreach-counter-box">
+                        <div class="outreach-display">
+                            <span class="outreach-number" id="outreachCount">0</span>
+                            <span class="outreach-target">/ 20 Messages</span>
+                        </div>
+                        <div class="outreach-controls">
+                            <button class="btn-counter" id="btnOutreachMinus"><i class="fa-solid fa-minus"></i></button>
+                            <button class="btn-counter btn-counter-plus" id="btnOutreachPlus"><i class="fa-solid fa-plus"></i></button>
+                            <button class="btn btn-sm btn-secondary" id="btnOutreachMax">Set 20</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Schedule & Hours Helper -->
+                <section class="card widget-card baseline-schedule">
+                    <h3 class="widget-title"><i class="fa-regular fa-clock"></i> Recommended Time Blocking</h3>
+                    <ul class="schedule-list">
+                        <li>
+                            <span class="time-slot">7:00 - 9:00 PM</span>
+                            <span class="time-task">Client Work / Deep Build</span>
+                        </li>
+                        <li>
+                            <span class="time-slot">9:00 - 9:30 PM</span>
+                            <span class="time-task">Outreach & Follow-ups</span>
+                        </li>
+                        <li>
+                            <span class="time-slot">9:30 - 10:00 PM</span>
+                            <span class="time-task">Learning / Strategy</span>
+                        </li>
+                        <li>
+                            <span class="time-slot">Sat/Sun Mornings</span>
+                            <span class="time-task">Deep Work & Demos</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Overall 90-Day Completion Overview -->
+                <section class="card widget-card">
+                    <h3 class="widget-title"><i class="fa-solid fa-trophy"></i> 90-Day Milestone Overview</h3>
+                    <div class="overall-progress-box">
+                        <div class="progress-circle-wrapper">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle class="progress-ring-bg" stroke="rgba(255,255,255,0.1)" stroke-width="10" fill="transparent" r="48" cx="60" cy="60"/>
+                                <circle class="progress-ring-circle" id="overallRing" stroke="#10b981" stroke-width="10" stroke-dasharray="301.59" stroke-dashoffset="301.59" fill="transparent" r="48" cx="60" cy="60"/>
+                            </svg>
+                            <div class="circle-text" id="overallPercentText">0%</div>
+                        </div>
+                        <div class="milestone-details">
+                            <p><strong id="completedDaysCount">0</strong> of 90 Days Completed</p>
+                            <p><strong id="totalOutreachSent">0</strong> Total Messages Sent</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- 90-Day Calendar & Progress Matrix Section -->
+        <section class="card matrix-section">
+            <div class="matrix-header">
+                <div>
+                    <h2><i class="fa-solid fa-grid-2"></i> 90-Day Roadmap Matrix</h2>
+                    <p class="section-desc">Click any day to jump to its checklist and guide.</p>
+                </div>
+                <div class="matrix-filters">
+                    <select id="filterWeek" class="filter-dropdown">
+                        <option value="all">All Weeks (1 - 13)</option>
+                        <option value="w1">Week 1 (Days 1 - 7)</option>
+                        <option value="w2">Week 2 (Days 8 - 14)</option>
+                        <option value="w3">Week 3 (Days 15 - 21)</option>
+                        <option value="w4">Week 4 (Days 22 - 28)</option>
+                        <option value="w5">Month 2 (Days 29 - 60)</option>
+                        <option value="w9">Month 3 (Days 61 - 90)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="matrix-grid" id="matrixGrid">
+                <!-- 90 day grid tiles injected via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal: Action Guide & Playbook -->
+    <div class="modal-overlay" id="guideModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <span class="badge badge-accent" id="modalCategory">Guide</span>
+                    <h2 id="modalTitle">Task Execution Playbook</h2>
+                </div>
+                <button class="btn-close" id="btnCloseGuide">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Settings & Backup Data -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-sliders"></i> Settings & Data Backup</h2>
+                <button class="btn-close" id="btnCloseSettings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="startDateInput"><strong>Challenge Start Date</strong></label>
+                    <input type="date" id="startDateInput" class="form-control">
+                    <small>Day 1 starts on this date. Automatically updates current day.</small>
+                </div>
+
+                <hr class="divider">
+
+                <h3>Data Backup & Restore</h3>
+                <p class="text-muted">Export your completed tasks and logs to JSON, or restore on another device.</p>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" id="btnExportData"><i class="fa-solid fa-download"></i> Export Progress JSON</button>
+                    <label class="btn btn-secondary btn-file">
+                        <i class="fa-solid fa-upload"></i> Import Progress JSON
+                        <input type="file" id="importFileInput" accept=".json" style="display:none;">
+                    </label>
+                </div>
+
+                <hr class="divider">
+
+                <div class="danger-zone">
+                    <h4>Reset Progress</h4>
+                    <p>Wipe all checkboxes and reset tracker back to Day 1.</p>
+                    <button class="btn btn-danger" id="btnResetData"><i class="fa-solid fa-trash-can"></i> Reset All Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>90-Day AI Freelancing Tracker • Built for high performance and daily consistency.</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
