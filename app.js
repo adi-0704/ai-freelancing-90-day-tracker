@@ -117,7 +117,7 @@ function setupEventListeners() {
     // Outreach Counter Buttons
     document.getElementById("btnOutreachMinus").addEventListener("click", () => updateOutreachCount(-1));
     document.getElementById("btnOutreachPlus").addEventListener("click", () => updateOutreachCount(1));
-    document.getElementById("btnOutreachMax").addEventListener("click", () => setOutreachCount(20));
+    document.getElementById("btnOutreachMax").addEventListener("click", () => setOutreachCount(10));
 
     // Modals
     document.getElementById("btnOpenGuide").addEventListener("click", openActionGuideModal);
@@ -273,10 +273,10 @@ function calculateDayPercent(dayData, dayProg) {
     let totalItems = 3 + dayData.tasks.length; // 3 non-counter baseline items + specific tasks
     let completedItems = 0;
 
-    if (dayProg.baseline.work) completedItems++;
+    if (dayProg.baseline.work || dayProg.baseline.morning_block || dayProg.baseline.build_session) completedItems++;
     if (dayProg.baseline.learning) completedItems++;
     if (dayProg.baseline.crm) completedItems++;
-    if (dayProg.baseline.outreach >= 20) completedItems += 0.5; // Bonus credit for outreach target
+    if (dayProg.baseline.outreach >= 10) completedItems += 0.5; // Bonus credit for outreach target
 
     dayProg.tasks.forEach(t => { if (t) completedItems++; });
 
